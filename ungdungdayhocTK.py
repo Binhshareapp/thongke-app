@@ -36,10 +36,10 @@ def calculate_frequency(data):
     return formatted_values, frequencies, total_count, relative_frequencies
 
 # Tiêu đề ứng dụng
-st.title("Ứng dụng Nhập liệu và Thống kê")
+st.title("Ứng dụng học Thống kê - (Tác giả:TranTanBinh)")
 
 # Tạo các tab
-tab1, tab2, tab3 = st.tabs(["Nhập liệu và Tạo bảng", "Biểu đồ Tần số", "Biểu đồ Tần số Tương đối"])
+tab1, tab2, tab3 = st.tabs(["Nhập liệu và Tạo bảng", "Xem biểu đồ Tần số", "Xem biểu đồ Tần số Tương đối"])
 
 with tab1:
     st.subheader("Nhập Liệu")
