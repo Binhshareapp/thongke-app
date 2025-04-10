@@ -36,15 +36,15 @@ def calculate_frequency(data):
     return formatted_values, frequencies, total_count, relative_frequencies
 
 # Tiêu đề ứng dụng
-st.title("Ứng dụng học Thống kê Toán 9")
+st.title("Ứng dụng học Thống kê Toán 9")
 
 # Tạo các tab
-tab1, tab2, tab3, tab4 = st.tabs(["Nhập liệu", "Bảng tần số và tần số tương đối", "Biểu đồ Tần số", "Biểu đồ Tần số Tương đối"])
+tab1, tab2, tab3, tab4 = st.tabs(["Nhập liệu", "Bảng tần số và tần số tương đối", "Biểu đồ Tần số", "Biểu đồ Tần số Tương đối"])
 
 with tab1:
     st.subheader("Nhập Liệu")
     
-    input_method = st.selectbox("Chọn cách nhập liệu:", ["Nhập liệu từ bảng", "Nhập liệu từ bảng tần số"])
+    input_method = st.selectbox("Chọn cách nhập liệu:", ["Nhập liệu từ bảng", "Nhập liệu từ bảng tần số"])
     
     if 'input_data' not in st.session_state:
         st.session_state['input_data'] = []
@@ -67,9 +67,9 @@ with tab1:
     if 'show_frequency_table' not in st.session_state:
         st.session_state['show_frequency_table'] = False
 
-    # Nhập liệu từ bảng
-    if input_method == "Nhập liệu từ bảng":
-        st.write("Nhập liệu từ bảng")
+    # Nhập liệu từ bảng
+    if input_method == "Nhập liệu từ bảng":
+        st.write("Nhập liệu từ bảng")
         
         num_cols = st.session_state['normal_num_cols']
         num_rows = st.session_state['normal_num_rows']
@@ -129,7 +129,10 @@ with tab1:
                     st.session_state['input_data'] = st.session_state['temp_data']
                     st.session_state['edit_mode'] = False
                     st.session_state['normal_num_rows'] = len(st.session_state['temp_data'])
-                    st.session_state['normal_num_cols'] = len(st.sessionion_state['temp_data'][0]) if st.session_state['temp_data'] else 5
+                    if st.session_state['temp_data'] and st.session_state['temp_data'][0]:
+                        st.session_state['normal_num_cols'] = len(st.session_state['temp_data'][0])
+                    else:
+                        st.session_state['normal_num_cols'] = 5
                     st.rerun()
         
         if not st.session_state['edit_mode']:
@@ -212,7 +215,7 @@ with tab1:
                 st.session_state['frequency_values'] = [None] * 3
                 st.session_state['frequency_counts'] = [0] * 3
                 st.session_state['input_data'] = []
-                st.session_state['edit_macode'] = True
+                st.session_state['edit_mode'] = True  # Sửa từ 'edit_macode' thành 'edit_mode'
                 st.session_state['data_type'] = None
                 st.session_state['show_frequency_table'] = False
                 st.session_state['frequency_table_transposed'] = False
@@ -238,7 +241,7 @@ with tab1:
             st.warning("Vui lòng nhập dữ liệu trước khi tính toán.")
 
 with tab2:
-    st.subheader("Bảng tần số và tần số tương đối")
+    st.subheader("Bảng tần số và tần số tương đối")
     if st.session_state.get('show_frequency_table', False):
         frequency_df = pd.DataFrame(
             [st.session_state['unique_values'], st.session_state['frequencies'], [f"{rf:.2f}%" for rf in st.session_state['relative_frequencies']]],
